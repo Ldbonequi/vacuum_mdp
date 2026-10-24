@@ -41,9 +41,12 @@ def q_value(state, action, values, living_cost):
 def solve(living_cost, tolerance=1e-10):
     values = dict.fromkeys(STATES, 0.0)
     for iteration in range(1, 10001):
-        updated = {s: (0.0 if s in TERMINALS else
-                      max(q_value(s, a, values, living_cost) for a in ACTIONS))
-                   for s in STATES}
+        updated = {
+            s: (0.0 if TERMINALS.get(s) == 10
+                else -1.0 + GAMMA * values[s] if TERMINALS.get(s) == -1
+                else max(q_value(s, a, values, living_cost) for a in ACTIONS))
+            for s in STATES
+        }
         change = max(abs(updated[s] - values[s]) for s in STATES)
         values = updated
         if change < tolerance:
@@ -68,12 +71,15 @@ def simulate(policy, living_cost, seed, verbose=False, delay=0, max_steps=500):
     rng = random.Random(seed)
     state, path, total, discounted = START, [START], 0.0, 0.0
     for step in range(1, max_steps + 1):
-        action = policy[state]
-        u, cumulative = rng.random(), 0.0
-        for probability, actual, ns in outcomes(state, action):
-            cumulative += probability
-            if u < cumulative:
-                break
+        if state in TERMINALS and TERMINALS[state] == -1:
+            action, actual, ns = "STUCK", "STUCK", state
+        else:
+            action = policy[state]
+            u, cumulative = rng.random(), 0.0
+            for probability, actual, ns in outcomes(state, action):
+                cumulative += probability
+                if u < cumulative:
+                    break
         earned = reward(ns, living_cost)
         total += earned
         discounted += GAMMA ** (step - 1) * earned
@@ -84,7 +90,7 @@ def simulate(policy, living_cost, seed, verbose=False, delay=0, max_steps=500):
         if verbose and delay:
             render(policy, state)
             print()
-        if state in TERMINALS:
+        if TERMINALS.get(state) == 10:
             break
     status = "RECHARGED" if TERMINALS.get(state) == 10 else "TRAPPED" if state in TERMINALS else "TIMEOUT"
     if verbose:
