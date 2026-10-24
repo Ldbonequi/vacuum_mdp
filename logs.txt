@@ -1,0 +1,85 @@
+Terminal reward replaces living cost on entry; gamma=0.95.
+
+=== Living cost -0.04; iterations=450; V(start)=8.420513 ===
+Policy (N/E/S/W); R marks robot:
+  E   E   S   R
+  N   X   S   S
+  N   N   E   S
+  W  -1   E  10
+001: (0, 3) intended=S actual=S -> (1, 3) reward=-0.04
+  E   E   S   S
+  N   X   S   R
+  N   N   E   S
+  W  -1   E  10
+
+002: (1, 3) intended=S actual=S -> (2, 3) reward=-0.04
+  E   E   S   S
+  N   X   S   S
+  N   N   E   R
+  W  -1   E  10
+
+003: (2, 3) intended=S actual=S -> (3, 3) reward=+10.00
+  E   E   S   S
+  N   X   S   S
+  N   N   E   S
+  W  -1   E   R
+
+Path: (0, 3) -> (1, 3) -> (2, 3) -> (3, 3)
+RECHARGED; steps=3; total=9.92; discounted=8.947000
+Trials=1000: {'RECHARGED': 1000, 'TRAPPED': 0, 'TIMEOUT': 0}; mean steps=4.194; mean discounted return=8.400514
+
+=== Living cost -1.00; iterations=450; V(start)=5.612537 ===
+Policy (N/E/S/W); R marks robot:
+  E   E   S   R
+  N   X   S   S
+  E   E   E   S
+  N  -1   E  10
+001: (0, 3) intended=S actual=S -> (1, 3) reward=-1.00
+  E   E   S   S
+  N   X   S   R
+  E   E   E   S
+  N  -1   E  10
+
+002: (1, 3) intended=S actual=S -> (2, 3) reward=-1.00
+  E   E   S   S
+  N   X   S   S
+  E   E   E   R
+  N  -1   E  10
+
+003: (2, 3) intended=S actual=S -> (3, 3) reward=+10.00
+  E   E   S   S
+  N   X   S   S
+  E   E   E   S
+  N  -1   E   R
+
+Path: (0, 3) -> (1, 3) -> (2, 3) -> (3, 3)
+RECHARGED; steps=3; total=8.00; discounted=7.075000
+Trials=1000: {'RECHARGED': 1000, 'TRAPPED': 0, 'TIMEOUT': 0}; mean steps=4.194; mean discounted return=5.556984
+
+=== Living cost -5.00; iterations=450; V(start)=-6.087366 ===
+Policy (N/E/S/W); R marks robot:
+  E   E   S   R
+  S   X   S   S
+  E   E   E   S
+  N  -1   E  10
+001: (0, 3) intended=S actual=S -> (1, 3) reward=-5.00
+  E   E   S   S
+  S   X   S   R
+  E   E   E   S
+  N  -1   E  10
+
+002: (1, 3) intended=S actual=S -> (2, 3) reward=-5.00
+  E   E   S   S
+  S   X   S   S
+  E   E   E   R
+  N  -1   E  10
+
+003: (2, 3) intended=S actual=S -> (3, 3) reward=+10.00
+  E   E   S   S
+  S   X   S   S
+  E   E   E   S
+  N  -1   E   R
+
+Path: (0, 3) -> (1, 3) -> (2, 3) -> (3, 3)
+RECHARGED; steps=3; total=0.00; discounted=-0.725000
+Trials=1000: {'RECHARGED': 1000, 'TRAPPED': 0, 'TIMEOUT': 0}; mean steps=4.194; mean discounted return=-6.291060
